@@ -65,7 +65,7 @@ const NutritionTracker = ({ user }: NutritionTrackerProps) => {
     potassium: 0,
     zinc: 0,
   });
-  
+
   const [loggedFoods, setLoggedFoods] = useState<LoggedFood[]>([]);
   const [foodForm, setFoodForm] = useState({
     name: '',
@@ -220,14 +220,14 @@ const NutritionTracker = ({ user }: NutritionTrackerProps) => {
     // Simplified nutrient estimation based on food name keywords
     const name = foodName.toLowerCase();
     const base = calories / 100; // Scale with calories
-    
+
     let vitamin_a = 0, vitamin_c = 0, iron = 0, calcium = 0;
-    
+
     if (name.includes('carrot') || name.includes('sweet potato')) vitamin_a = base * 15;
     if (name.includes('orange') || name.includes('citrus') || name.includes('tomato')) vitamin_c = base * 10;
     if (name.includes('spinach') || name.includes('meat') || name.includes('bean')) iron = base * 2;
     if (name.includes('milk') || name.includes('cheese') || name.includes('yogurt')) calcium = base * 12;
-    
+
     return { vitamin_a, vitamin_c, iron, calcium };
   };
 
@@ -260,7 +260,7 @@ const NutritionTracker = ({ user }: NutritionTrackerProps) => {
   const saveNutritionData = async (data: NutritionData) => {
     try {
       const today = new Date().toISOString().split('T')[0];
-      
+
       const { data: existing } = await supabase
         .from('nutrient_intake')
         .select('id')
@@ -298,7 +298,7 @@ const NutritionTracker = ({ user }: NutritionTrackerProps) => {
         timestamp: food.timestamp
       }))
     };
-    
+
     const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -306,7 +306,7 @@ const NutritionTracker = ({ user }: NutritionTrackerProps) => {
     a.download = 'nutrition-summary.json';
     a.click();
     URL.revokeObjectURL(url);
-    
+
     toast({
       title: "Nutrition data exported",
       description: "Your daily nutrition summary has been downloaded",
@@ -526,14 +526,30 @@ const NutritionTracker = ({ user }: NutritionTrackerProps) => {
               <div key={food.id} className="flex items-center justify-between p-3 bg-muted/20 rounded-lg">
                 <div className="flex-1">
                   <div className="font-medium">{food.name}</div>
-                  <div className="text-sm text-muted-foreground">
-                    {food.calories} cal • {food.protein}g protein
-                    {food.carbs && ` • ${food.carbs}g carbs`}
-                    {food.fat && ` • ${food.fat}g fat`}
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    {new Date(food.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                  </div>
+                  {food.name === 'Healthy Swap Analysis' ? (
+                    // Special display for Healthy Swap entries
+                    <>
+                      <div className="text-sm text-[hsl(142,76%,50%)] flex items-center gap-1">
+                        <span>✓</span>
+                        <span>Healthy Swap Made</span>
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        {new Date(food.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </div>
+                    </>
+                  ) : (
+                    // Regular display for normal food entries
+                    <>
+                      <div className="text-sm text-muted-foreground">
+                        {food.calories} cal • {food.protein}g protein
+                        {food.carbs && ` • ${food.carbs}g carbs`}
+                        {food.fat && ` • ${food.fat}g fat`}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        {new Date(food.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </div>
+                    </>
+                  )}
                 </div>
                 <Button
                   variant="ghost"

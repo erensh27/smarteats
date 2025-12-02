@@ -6,6 +6,7 @@ import type { User } from '@supabase/supabase-js';
 import GroceryListSection from './GroceryListSection';
 import NutritionTracker from './NutritionTracker';
 import MealRecommendations from './MealRecommendations';
+import HealthySwap from './HealthySwap';
 
 interface DashboardProps {
   user: User;
@@ -35,6 +36,7 @@ interface MealSuggestion {
 
 const Dashboard = ({ user, onLogout }: DashboardProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [showHealthySwap, setShowHealthySwap] = useState(false);
   const { toast } = useToast();
 
   const handleSignOut = async () => {
@@ -70,7 +72,7 @@ const Dashboard = ({ user, onLogout }: DashboardProps) => {
         .limit(1);
 
       const currentItems = Array.isArray(existingData?.[0]?.items) ? existingData[0].items : [];
-      
+
       // Add new items
       const newItems = items.map(item => ({
         id: crypto.randomUUID(),
@@ -186,6 +188,11 @@ const Dashboard = ({ user, onLogout }: DashboardProps) => {
     }
   };
 
+  // Show HealthySwap page if user clicked the button
+  if (showHealthySwap) {
+    return <HealthySwap user={user} onBack={() => setShowHealthySwap(false)} />;
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
@@ -219,8 +226,8 @@ const Dashboard = ({ user, onLogout }: DashboardProps) => {
 
         <div className="space-y-8 sm:space-y-12">
           <section>
-            <MealRecommendations 
-              user={user} 
+            <MealRecommendations
+              user={user}
               onAddToGroceryList={handleAddToGroceryList}
               onLogMeal={handleLogMeal}
             />
@@ -228,6 +235,19 @@ const Dashboard = ({ user, onLogout }: DashboardProps) => {
 
           <section>
             <NutritionTracker user={user} />
+          </section>
+
+          {/* Healthy Swap Button Section */}
+          <section className="flex justify-center">
+            <Button
+              onClick={() => setShowHealthySwap(true)}
+              size="lg"
+              className="bg-[hsl(142,76%,36%)] hover:bg-[hsl(142,76%,42%)] text-white font-semibold px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            >
+              <span className="mr-2">🥗</span>
+              Healthy Swap
+              <span className="ml-2">✨</span>
+            </Button>
           </section>
 
           <section>

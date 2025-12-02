@@ -93,7 +93,7 @@ const MealRecommendations = ({ user, onAddToGroceryList, onLogMeal }: MealRecomm
 
   const generatePersonalizedMeals = async () => {
     if (preferences.tastes.length === 0 && preferences.dietaryRestrictions.length === 0) return;
-    
+
     setIsLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke('generate-meal-suggestions', {
@@ -124,7 +124,7 @@ const MealRecommendations = ({ user, onAddToGroceryList, onLogMeal }: MealRecomm
           portionSize: meal.portionSize || "1 serving (300-400g)",
           substitutions: meal.substitutions || ["Ask for specific substitutions based on your preferences"]
         }));
-        
+
         setMeals(enhancedMeals);
         toast({
           title: "Personalized meals generated!",
@@ -179,7 +179,7 @@ ${meal.substitutions?.map((sub, i) => `${i + 1}. ${sub}`).join('\n') || 'No subs
 
 ${'='.repeat(80)}
 `).join('\n');
-    
+
     const blob = new Blob([exportText], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -187,7 +187,7 @@ ${'='.repeat(80)}
     a.download = 'smarteats-meal-recommendations.txt';
     a.click();
     URL.revokeObjectURL(url);
-    
+
     toast({
       title: "Meals exported",
       description: "Your meal recommendations have been downloaded as text file",
@@ -208,13 +208,13 @@ ${'='.repeat(80)}
           </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
-          <UserPreferencesDialog 
-            user={user} 
-            preferences={preferences} 
-            onPreferencesChange={setPreferences} 
+          <UserPreferencesDialog
+            user={user}
+            preferences={preferences}
+            onPreferencesChange={setPreferences}
           />
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             size="sm"
             onClick={generatePersonalizedMeals}
             disabled={isLoading}
@@ -273,10 +273,10 @@ ${'='.repeat(80)}
                   </div>
                 </div>
               </CardHeader>
-              
+
               <CardContent className="space-y-4">
                 <p className="text-sm text-muted-foreground">{meal.description}</p>
-                
+
                 <div>
                   <h4 className="font-medium mb-2">Nutrition (per {meal.portionSize}):</h4>
                   <div className="grid grid-cols-2 gap-2 text-sm">
@@ -286,8 +286,8 @@ ${'='.repeat(80)}
                     <div><span className="font-medium">Fat:</span> {meal.nutrition.fat}</div>
                   </div>
                   <div className="mt-2 text-xs text-muted-foreground">
-                    <div><strong>Key vitamins:</strong> {Object.entries(meal.nutrition.vitamins).map(([k,v]) => `${k}: ${v}`).join(', ')}</div>
-                    <div><strong>Key minerals:</strong> {Object.entries(meal.nutrition.minerals).map(([k,v]) => `${k}: ${v}`).join(', ')}</div>
+                    <div><strong>Key vitamins:</strong> {Object.entries(meal.nutrition.vitamins).map(([k, v]) => `${k}: ${v}`).join(', ')}</div>
+                    <div><strong>Key minerals:</strong> {Object.entries(meal.nutrition.minerals).map(([k, v]) => `${k}: ${v}`).join(', ')}</div>
                   </div>
                 </div>
 
