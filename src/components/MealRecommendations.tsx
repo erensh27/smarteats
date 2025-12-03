@@ -7,6 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import type { User } from '@supabase/supabase-js';
 import UserPreferencesDialog from './UserPreferencesDialog';
+import { logMealGeneration, logMealLogged, logGroceryItemsAdded, logMealExport } from '@/lib/analytics';
 
 interface MealSuggestion {
   name: string;
@@ -130,6 +131,13 @@ const MealRecommendations = ({ user, onAddToGroceryList, onLogMeal }: MealRecomm
           title: "Personalized meals generated!",
           description: "Fresh meal suggestions based on your preferences are ready.",
         });
+
+        // Log analytics event for meal generation
+        logMealGeneration({
+          tastes: preferences.tastes,
+          dietaryRestrictions: preferences.dietaryRestrictions,
+          cuisines: preferences.cuisines,
+        });
       }
     } catch (error) {
       console.error('Error generating meals:', error);
@@ -192,6 +200,9 @@ ${'='.repeat(80)}
       title: "Meals exported",
       description: "Your meal recommendations have been downloaded as text file",
     });
+
+    // Log analytics event for meal export
+    logMealExport();
   };
 
   return (
@@ -314,7 +325,10 @@ ${'='.repeat(80)}
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => onAddToGroceryList(meal.ingredients)}
+                    onClick={() => {
+                      onAddToGroceryList(meal.ingredients);
+                      logGroceryItemsAdded(meal.ingredients.length, 'meal_recommendation');
+                    }}
                     className="flex-1 text-xs sm:text-sm"
                   >
                     <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
@@ -322,7 +336,10 @@ ${'='.repeat(80)}
                   </Button>
                   <Button
                     size="sm"
-                    onClick={() => onLogMeal(meal)}
+                    onClick={() => {
+                      onLogMeal(meal);
+                      logMealLogged(meal.name, meal.nutrition.calories);
+                    }}
                     className="flex-1 text-xs sm:text-sm"
                   >
                     <Plus className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />

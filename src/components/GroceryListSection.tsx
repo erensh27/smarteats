@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import type { User } from '@supabase/supabase-js';
+import { logGroceryItemsAdded, logGroceryExport } from '@/lib/analytics';
 
 interface GroceryItem {
   id: string;
@@ -99,6 +100,9 @@ const GroceryListSection = ({ user }: GroceryListSectionProps) => {
       title: "Item added",
       description: `${newGroceryItem.name} added to your grocery list`,
     });
+
+    // Log analytics event for manual grocery item addition
+    logGroceryItemsAdded(1, 'manual_entry');
   };
 
   const toggleItem = async (id: string) => {
@@ -128,7 +132,7 @@ const GroceryListSection = ({ user }: GroceryListSectionProps) => {
         completed: item.completed
       }))
     };
-    
+
     const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -136,11 +140,14 @@ const GroceryListSection = ({ user }: GroceryListSectionProps) => {
     a.download = 'grocery-list.json';
     a.click();
     URL.revokeObjectURL(url);
-    
+
     toast({
       title: "Grocery list exported",
       description: "Your grocery list has been downloaded",
     });
+
+    // Log analytics event for grocery list export
+    logGroceryExport();
   };
 
   const completedCount = items.filter(item => item.completed).length;
@@ -170,8 +177,8 @@ const GroceryListSection = ({ user }: GroceryListSectionProps) => {
             Grocery List
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground">
-            {totalCount === 0 
-              ? "Your list is empty. Add items you need today!" 
+            {totalCount === 0
+              ? "Your list is empty. Add items you need today!"
               : `${completedCount}/${totalCount} items completed`
             }
           </p>
@@ -248,7 +255,7 @@ const GroceryListSection = ({ user }: GroceryListSectionProps) => {
                 </Button>
               </div>
             ))}
-          
+
           {/* Completed items */}
           {items
             .filter(item => item.completed)

@@ -11,6 +11,7 @@ import { Settings, RefreshCw } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import type { User } from '@supabase/supabase-js';
+import { logPreferencesUpdated } from '@/lib/analytics';
 
 interface UserPreferences {
   tastes: string[];
@@ -68,11 +69,14 @@ const UserPreferencesDialog = ({ user, preferences, onPreferencesChange }: UserP
 
       onPreferencesChange(localPrefs);
       setIsOpen(false);
-      
+
       toast({
         title: "Preferences saved",
         description: "Your meal preferences have been updated",
       });
+
+      // Log analytics event for preferences update
+      logPreferencesUpdated('food_preferences');
     } catch (error) {
       console.error('Error saving preferences:', error);
       toast({
@@ -107,7 +111,7 @@ const UserPreferencesDialog = ({ user, preferences, onPreferencesChange }: UserP
         <DialogHeader>
           <DialogTitle>Your Food Preferences</DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-6">
           {/* Taste Preferences */}
           <div>

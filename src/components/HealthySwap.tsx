@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import type { User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
+import { logHealthySwap } from '@/lib/analytics';
 
 interface HealthySwapProps {
     user: User;
@@ -161,6 +162,9 @@ const HealthySwap = ({ user, onBack }: HealthySwapProps) => {
                 meal_description: `Analyzed recipe with ${foundSwaps.length} healthy substitutions`,
                 cooked_at: new Date().toISOString(),
             });
+
+            // Log analytics event for healthy swap
+            logHealthySwap(foundSwaps.length);
 
         } catch (error) {
             console.error('Error processing recipe:', error);
