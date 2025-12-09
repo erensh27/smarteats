@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ProgressIndicator, CircularProgress, NutrientCard } from '@/components/ui/progress-indicator';
 import { TrendingUp, Globe, Zap, Brain, ChefHat, Heart } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import smartEatsLogo from '@/assets/smarteats-logo.png';
 
 const mockNutrientData = [
@@ -33,16 +34,17 @@ const LandingPage = ({ onAuthClick }: LandingPageProps) => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header with Logo */}
-      <header className="absolute top-0 left-0 z-50 p-6">
+      {/* Header with Logo and Theme Toggle */}
+      <header className="absolute top-0 left-0 right-0 z-50 p-6 flex justify-between items-center">
         <div className="flex items-center gap-3">
-          <img 
-            src={smartEatsLogo} 
-            alt="SmartEats Logo" 
+          <img
+            src={smartEatsLogo}
+            alt="SmartEats Logo"
             className="w-12 h-12 object-contain"
           />
           <span className="text-2xl font-bold text-foreground">SmartEats</span>
         </div>
+        <ThemeToggle />
       </header>
 
       {/* Hero Section */}
@@ -60,7 +62,7 @@ const LandingPage = ({ onAuthClick }: LandingPageProps) => {
                 <p className="text-2xl lg:text-3xl text-cta font-semibold max-w-3xl mx-auto">
                   Personalized Meals, Smarter Health
                 </p>
-                
+
                 {/* Enhanced taglines */}
                 <div className="space-y-4 text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto">
                   <p>Personalized meals for your taste and health.</p>
@@ -68,7 +70,7 @@ const LandingPage = ({ onAuthClick }: LandingPageProps) => {
                   <p>AI-powered meal recommendations for a healthier lifestyle.</p>
                 </div>
               </div>
-              
+
               <div className="grid md:grid-cols-3 gap-6 text-center max-w-3xl mx-auto mb-8">
                 <div className="flex flex-col items-center gap-2">
                   <Brain className="w-8 h-8 text-cta" />
@@ -91,17 +93,17 @@ const LandingPage = ({ onAuthClick }: LandingPageProps) => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  variant="cta" 
-                  size="lg" 
+                <Button
+                  variant="cta"
+                  size="lg"
                   onClick={() => onAuthClick('signup')}
                   className="text-lg px-8 py-6"
                 >
                   Start Your Journey
                 </Button>
-                <Button 
-                  variant="hero" 
-                  size="lg" 
+                <Button
+                  variant="hero"
+                  size="lg"
                   onClick={() => onAuthClick('login')}
                   className="text-lg px-8 py-6"
                 >
@@ -124,7 +126,7 @@ const LandingPage = ({ onAuthClick }: LandingPageProps) => {
               Available in 100+ countries with regional dishes from around the world
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {mockUserStats.map((stat, index) => {
               const Icon = stat.icon;
@@ -164,9 +166,9 @@ const LandingPage = ({ onAuthClick }: LandingPageProps) => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex justify-center">
-                <CircularProgress 
-                  value={87} 
-                  size={150} 
+                <CircularProgress
+                  value={87}
+                  size={150}
                   color="hsl(var(--cta))"
                   className="animate-scale-in"
                 >
@@ -257,7 +259,7 @@ const LandingPage = ({ onAuthClick }: LandingPageProps) => {
               Why Choose SmartEats?
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Experience the future of personalized nutrition with AI that learns your preferences, 
+              Experience the future of personalized nutrition with AI that learns your preferences,
               suggests meals based on your health goals, and helps you discover new flavors while optimizing wellness.
             </p>
           </div>
@@ -309,9 +311,9 @@ const LandingPage = ({ onAuthClick }: LandingPageProps) => {
             <p className="text-xl text-muted-foreground">
               Join the SmartEats community and start your journey to better health today.
             </p>
-            <Button 
-              variant="cta" 
-              size="lg" 
+            <Button
+              variant="cta"
+              size="lg"
               onClick={() => onAuthClick('signup')}
               className="text-xl px-12 py-8"
             >

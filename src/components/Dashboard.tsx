@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import type { User } from '@supabase/supabase-js';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import GroceryListSection from './GroceryListSection';
 import NutritionTracker from './NutritionTracker';
 import MealRecommendations from './MealRecommendations';
@@ -205,6 +206,7 @@ const Dashboard = ({ user, onLogout }: DashboardProps) => {
             <span className="text-xs sm:text-sm text-muted-foreground hidden sm:inline">
               Welcome, {user.email?.split('@')[0]}
             </span>
+            <ThemeToggle />
             <Button
               variant="outline"
               size="sm"

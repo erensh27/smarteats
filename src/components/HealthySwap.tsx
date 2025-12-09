@@ -8,6 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 import type { User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { logHealthySwap } from '@/lib/analytics';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 interface HealthySwapProps {
     user: User;
@@ -208,9 +209,9 @@ const HealthySwap = ({ user, onBack }: HealthySwapProps) => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-[hsl(142,76%,5%)] via-[hsl(0,0%,0%)] to-[hsl(0,0%,0%)]">
+        <div className="min-h-screen bg-background">
             {/* Header */}
-            <header className="border-b border-[hsl(142,76%,20%)] bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+            <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
                 <div className="container flex h-14 sm:h-16 items-center justify-between px-4">
                     <div className="flex items-center gap-4">
                         <Button variant="ghost" size="sm" onClick={onBack}>
@@ -218,13 +219,16 @@ const HealthySwap = ({ user, onBack }: HealthySwapProps) => {
                             Back
                         </Button>
                         <div className="flex items-center gap-2">
-                            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-[hsl(142,76%,36%)]" />
-                            <h1 className="text-lg sm:text-2xl font-bold text-[hsl(142,76%,36%)]">Healthy Swap</h1>
+                            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-cta" />
+                            <h1 className="text-lg sm:text-2xl font-bold text-cta">Healthy Swap</h1>
                         </div>
                     </div>
-                    <span className="text-xs sm:text-sm text-muted-foreground hidden sm:inline">
-                        AI-Powered Recipe Optimizer
-                    </span>
+                    <div className="flex items-center gap-2">
+                        <span className="text-xs sm:text-sm text-muted-foreground hidden sm:inline">
+                            AI-Powered Recipe Optimizer
+                        </span>
+                        <ThemeToggle />
+                    </div>
                 </div>
             </header>
 

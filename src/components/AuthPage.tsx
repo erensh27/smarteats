@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { ArrowLeft, Mail, Lock, User, AlertCircle } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 interface AuthPageProps {
   mode: 'login' | 'signup';
@@ -34,7 +35,7 @@ const AuthPage = ({ mode, onBack, onSuccess }: AuthPageProps) => {
     try {
       if (mode === 'signup') {
         const redirectUrl = `${window.location.origin}/`;
-        
+
         const { error } = await supabase.auth.signUp({
           email,
           password,
@@ -119,6 +120,9 @@ const AuthPage = ({ mode, onBack, onSuccess }: AuthPageProps) => {
   if (showForgotPassword) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="absolute top-6 right-6">
+          <ThemeToggle />
+        </div>
         <Card className="w-full max-w-md glass border-border/50">
           <CardHeader className="space-y-1">
             <Button
@@ -150,7 +154,7 @@ const AuthPage = ({ mode, onBack, onSuccess }: AuthPageProps) => {
                     <AlertDescription>{error}</AlertDescription>
                   </Alert>
                 )}
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="reset-email">Email</Label>
                   <Input
@@ -164,10 +168,10 @@ const AuthPage = ({ mode, onBack, onSuccess }: AuthPageProps) => {
                   />
                 </div>
 
-                <Button 
-                  type="submit" 
-                  variant="cta" 
-                  className="w-full" 
+                <Button
+                  type="submit"
+                  variant="cta"
+                  className="w-full"
                   disabled={isLoading}
                 >
                   {isLoading ? 'Sending...' : 'Send Reset Link'}
@@ -182,6 +186,9 @@ const AuthPage = ({ mode, onBack, onSuccess }: AuthPageProps) => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="absolute top-6 right-6">
+        <ThemeToggle />
+      </div>
       <Card className="w-full max-w-md glass border-border/50">
         <CardHeader className="space-y-1">
           <Button
@@ -196,8 +203,8 @@ const AuthPage = ({ mode, onBack, onSuccess }: AuthPageProps) => {
             {mode === 'login' ? 'Welcome Back' : 'Create Account'}
           </CardTitle>
           <CardDescription>
-            {mode === 'login' 
-              ? 'Sign in to your SmartEats account' 
+            {mode === 'login'
+              ? 'Sign in to your SmartEats account'
               : 'Start your personalized nutrition journey'
             }
           </CardDescription>
@@ -241,7 +248,7 @@ const AuthPage = ({ mode, onBack, onSuccess }: AuthPageProps) => {
                 </div>
               </>
             )}
-            
+
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <div className="relative">
@@ -275,10 +282,10 @@ const AuthPage = ({ mode, onBack, onSuccess }: AuthPageProps) => {
               </div>
             </div>
 
-            <Button 
-              type="submit" 
-              variant="cta" 
-              className="w-full" 
+            <Button
+              type="submit"
+              variant="cta"
+              className="w-full"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -300,7 +307,7 @@ const AuthPage = ({ mode, onBack, onSuccess }: AuthPageProps) => {
                 </span>
               </div>
             </div>
-            
+
             <div className="mt-6 space-y-2">
               <Button
                 variant="outline"
@@ -309,7 +316,7 @@ const AuthPage = ({ mode, onBack, onSuccess }: AuthPageProps) => {
               >
                 {mode === 'login' ? 'Create an account' : 'Sign in instead'}
               </Button>
-              
+
               {mode === 'login' && (
                 <Button
                   variant="ghost"
