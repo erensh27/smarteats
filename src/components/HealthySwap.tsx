@@ -235,7 +235,7 @@ const HealthySwap = ({ user, onBack }: HealthySwapProps) => {
             <main className="container py-6 sm:py-8 px-4 space-y-6">
                 {/* Hero Section */}
                 <div className="text-center py-4 sm:py-6">
-                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 text-white">
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 text-[hsl(142,76%,36%)]">
                         Transform Your Recipes Into Healthier Versions
                     </h2>
                     <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
