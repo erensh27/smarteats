@@ -9,6 +9,7 @@ import type { User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { logHealthySwap } from '@/lib/analytics';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import Footer from './Footer';
 
 interface HealthySwapProps {
     user: User;
@@ -432,6 +433,7 @@ const HealthySwap = ({ user, onBack }: HealthySwapProps) => {
                     </CardContent>
                 </Card>
             </main>
+            <Footer />
         </div>
     );
 };

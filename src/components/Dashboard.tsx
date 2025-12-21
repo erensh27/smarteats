@@ -8,6 +8,7 @@ import GroceryListSection from './GroceryListSection';
 import NutritionTracker from './NutritionTracker';
 import MealRecommendations from './MealRecommendations';
 import HealthySwap from './HealthySwap';
+import Footer from './Footer';
 
 interface DashboardProps {
   user: User;
@@ -257,6 +258,7 @@ const Dashboard = ({ user, onLogout }: DashboardProps) => {
           </section>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

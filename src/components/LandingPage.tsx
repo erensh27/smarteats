@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ProgressIndicator, CircularProgress, NutrientCard } from '@/components/ui/progress-indicator';
 import { TrendingUp, Globe, Zap, Brain, ChefHat, Heart } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import Footer from '@/components/Footer';
 import smartEatsLogo from '@/assets/smarteats-logo.png';
 
 const mockNutrientData = [
@@ -322,6 +323,7 @@ const LandingPage = ({ onAuthClick }: LandingPageProps) => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

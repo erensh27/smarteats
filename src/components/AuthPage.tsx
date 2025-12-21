@@ -9,6 +9,7 @@ import { ArrowLeft, Mail, Lock, User, AlertCircle } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import Footer from '@/components/Footer';
 
 interface AuthPageProps {
   mode: 'login' | 'signup';
@@ -330,6 +331,7 @@ const AuthPage = ({ mode, onBack, onSuccess }: AuthPageProps) => {
           </div>
         </CardContent>
       </Card>
+      <Footer />
     </div>
   );
 };
