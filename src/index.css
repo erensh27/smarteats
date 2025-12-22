@@ -150,6 +150,7 @@ Smooth transitions between themes.
     @apply bg-background text-foreground font-sans antialiased;
     background: var(--gradient-hero);
     min-height: 100vh;
+    min-height: 100dvh;
     transition: background 0.3s ease, color 0.3s ease;
   }
 
@@ -193,9 +194,7 @@ Smooth transitions between themes.
 
   /* Glass morphism effects */
   .glass {
-    background: hsl(0 0% 100% / 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid hsl(0 0% 100% / 0.1);
+    @apply bg-card/40 backdrop-blur-xl border border-border/50 shadow-elegant;
   }
 
   /* Smooth animations */
