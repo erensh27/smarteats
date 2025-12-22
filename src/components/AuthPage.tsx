@@ -142,221 +142,221 @@ const AuthPage = ({ mode: initialMode, onBack, onSuccess }: AuthPageProps) => {
 
   if (showForgotPassword) {
     return (
-      <div className="min-h-[100dvh] bg-background/50 flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 animate-fade-in text-foreground">
-        <div className="w-full max-w-md">
-          {renderHeader()}
-          <Card className="glass border-border/50 overflow-hidden">
-            <CardHeader className="space-y-2 pb-6">
-              <CardTitle className="text-2xl sm:text-3xl font-bold tracking-tight">Reset Password</CardTitle>
-              <CardDescription className="text-base">
-                Enter your email address and we'll send you a link to reset your password.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {resetEmailSent ? (
-                <Alert className="bg-cta/10 border-cta/20">
-                  <Mail className="h-5 w-5 text-cta" />
-                  <AlertDescription className="text-sm font-medium">
-                    Reset link sent! Please check your inbox and follow the instructions.
-                  </AlertDescription>
-                </Alert>
-              ) : (
-                <form onSubmit={handleForgotPassword} className="space-y-5">
-                  {error && (
-                    <Alert variant="destructive" className="animate-in fade-in slide-in-from-top-1">
-                      <AlertCircle className="h-4 w-4" />
-                      <AlertDescription>{error}</AlertDescription>
-                    </Alert>
-                  )}
+      <div className="min-h-[100dvh] bg-background/50 flex flex-col items-center animate-fade-in text-foreground overflow-y-auto overflow-x-hidden">
+        <div className="flex-1 w-full flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
+          <div className="w-full max-w-md my-auto">
+            {renderHeader()}
+            <Card className="glass border-border/50 overflow-hidden">
+              <CardHeader className="space-y-2 pb-6">
+                <CardTitle className="text-2xl sm:text-3xl font-bold tracking-tight">Reset Password</CardTitle>
+                <CardDescription className="text-base">
+                  Enter your email address and we'll send you a link to reset your password.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {resetEmailSent ? (
+                  <Alert className="bg-cta/10 border-cta/20">
+                    <Mail className="h-5 w-5 text-cta" />
+                    <AlertDescription className="text-sm font-medium">
+                      Reset link sent! Please check your inbox and follow the instructions.
+                    </AlertDescription>
+                  </Alert>
+                ) : (
+                  <form onSubmit={handleForgotPassword} className="space-y-5">
+                    {error && (
+                      <Alert variant="destructive" className="animate-in fade-in slide-in-from-top-1">
+                        <AlertCircle className="h-4 w-4" />
+                        <AlertDescription>{error}</AlertDescription>
+                      </Alert>
+                    )}
 
-                  <div className="space-y-2">
-                    <Label htmlFor="reset-email" className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Email Address</Label>
-                    <div className="relative group">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-cta transition-colors" />
-                      <Input
-                        id="reset-email"
-                        type="email"
-                        placeholder="name@example.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="pl-10 h-12 bg-background/50 border-border/50 focus:border-cta focus:ring-cta/20 transition-all text-base"
-                      />
+                    <div className="space-y-2">
+                      <Label htmlFor="reset-email" className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Email Address</Label>
+                      <div className="relative group">
+                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-cta transition-colors" />
+                        <Input
+                          id="reset-email"
+                          type="email"
+                          placeholder="name@example.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          className="pl-10 h-12 bg-background/50 border-border/50 focus:border-cta focus:ring-cta/20 transition-all text-base"
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <Button
-                    type="submit"
-                    className="w-full h-12 text-lg font-semibold cta-gradient hover:opacity-90 transition-opacity"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? 'Sending Link...' : 'Send Reset Link'}
-                  </Button>
-                </form>
-              )}
-            </CardContent>
-          </Card>
+                    <Button
+                      type="submit"
+                      className="w-full h-12 text-lg font-semibold cta-gradient hover:opacity-90 transition-opacity"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? 'Sending Link...' : 'Send Reset Link'}
+                    </Button>
+                  </form>
+                )}
+              </CardContent>
+            </Card>
+          </div>
         </div>
-        <div className="mt-auto py-8">
-          <Footer />
-        </div>
+        <Footer />
       </div>
     );
   }
 
   return (
-    <div className="min-h-[100dvh] bg-background/50 flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 animate-fade-in text-foreground">
-      <div className="w-full max-w-md">
-        {renderHeader()}
-        <Card className="glass border-border/50 overflow-hidden shadow-2xl">
-          <CardHeader className="space-y-2 pb-6 text-center sm:text-left">
-            <CardTitle className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-              {mode === 'login' ? 'Welcome Back' : 'Get Started'}
-            </CardTitle>
-            <CardDescription className="text-base sm:text-lg">
-              {mode === 'login'
-                ? 'Sign in to access your personalized menu'
-                : 'Create your account to start your health journey'
-              }
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <form onSubmit={handleSubmit} className="space-y-5">
-              {error && (
-                <Alert variant="destructive" className="animate-in fade-in slide-in-from-top-1">
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
+    <div className="min-h-[100dvh] bg-background/50 flex flex-col items-center animate-fade-in text-foreground overflow-y-auto overflow-x-hidden">
+      <div className="flex-1 w-full flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
+        <div className="w-full max-w-md my-auto">
+          {renderHeader()}
+          <Card className="glass border-border/50 overflow-hidden shadow-2xl">
+            <CardHeader className="space-y-2 pb-6 text-center sm:text-left">
+              <CardTitle className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                {mode === 'login' ? 'Welcome Back' : 'Get Started'}
+              </CardTitle>
+              <CardDescription className="text-base sm:text-lg">
+                {mode === 'login'
+                  ? 'Sign in to access your personalized menu'
+                  : 'Create your account to start your health journey'
+                }
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {error && (
+                  <Alert variant="destructive" className="animate-in fade-in slide-in-from-top-1">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
+                )}
 
-              {mode === 'signup' && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="firstName" className="text-xs font-bold uppercase tracking-widest text-muted-foreground/80">First Name</Label>
-                    <div className="relative group">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-cta transition-colors" />
-                      <Input
-                        id="firstName"
-                        type="text"
-                        placeholder="John"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        required
-                        className="pl-10 h-11 bg-background/50 border-border/50 focus:border-cta transition-all"
-                      />
+                {mode === 'signup' && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="firstName" className="text-xs font-bold uppercase tracking-widest text-muted-foreground/80">First Name</Label>
+                      <div className="relative group">
+                        <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-cta transition-colors" />
+                        <Input
+                          id="firstName"
+                          type="text"
+                          placeholder="John"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          required
+                          className="pl-10 h-11 bg-background/50 border-border/50 focus:border-cta transition-all"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="lastName" className="text-xs font-bold uppercase tracking-widest text-muted-foreground/80">Last Name</Label>
+                      <div className="relative group">
+                        <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-cta transition-colors" />
+                        <Input
+                          id="lastName"
+                          type="text"
+                          placeholder="Doe"
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          required
+                          className="pl-10 h-11 bg-background/50 border-border/50 focus:border-cta transition-all"
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="lastName" className="text-xs font-bold uppercase tracking-widest text-muted-foreground/80">Last Name</Label>
-                    <div className="relative group">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-cta transition-colors" />
-                      <Input
-                        id="lastName"
-                        type="text"
-                        placeholder="Doe"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        required
-                        className="pl-10 h-11 bg-background/50 border-border/50 focus:border-cta transition-all"
-                      />
-                    </div>
+                )}
+
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-muted-foreground/80">Email Address</Label>
+                  <div className="relative group">
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-cta transition-colors" />
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="name@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="pl-10 h-11 bg-background/50 border-border/50 focus:border-cta transition-all"
+                    />
                   </div>
                 </div>
-              )}
 
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-muted-foreground/80">Email Address</Label>
-                <div className="relative group">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-cta transition-colors" />
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="name@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="pl-10 h-11 bg-background/50 border-border/50 focus:border-cta transition-all"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="password" className="text-xs font-bold uppercase tracking-widest text-muted-foreground/80">Password</Label>
-                  {mode === 'login' && (
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="password" className="text-xs font-bold uppercase tracking-widest text-muted-foreground/80">Password</Label>
+                    {mode === 'login' && (
+                      <button
+                        type="button"
+                        onClick={() => setShowForgotPassword(true)}
+                        className="text-xs font-medium text-cta hover:underline transition-all"
+                      >
+                        Forgot?
+                      </button>
+                    )}
+                  </div>
+                  <div className="relative group">
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-cta transition-colors" />
+                    <Input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="••••••••"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                      minLength={6}
+                      className="px-10 h-11 bg-background/50 border-border/50 focus:border-cta transition-all"
+                    />
                     <button
                       type="button"
-                      onClick={() => setShowForgotPassword(true)}
-                      className="text-xs font-medium text-cta hover:underline transition-all"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground transition-colors"
                     >
-                      Forgot?
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
-                  )}
+                  </div>
                 </div>
-                <div className="relative group">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-cta transition-colors" />
-                  <Input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="••••••••"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    minLength={6}
-                    className="px-10 h-11 bg-background/50 border-border/50 focus:border-cta transition-all"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </button>
+
+                <Button
+                  type="submit"
+                  className="w-full h-12 text-lg font-bold cta-gradient shadow-lg shadow-cta/20 hover:scale-[1.01] active:scale-[0.99] transition-all"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <span className="flex items-center gap-2">
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                      {mode === 'login' ? 'Signing In...' : 'Joining...'}
+                    </span>
+                  ) : (
+                    mode === 'login' ? 'Sign In' : 'Create Account'
+                  )}
+                </Button>
+              </form>
+
+              <div className="relative py-2">
+                <div className="absolute inset-0 flex items-center">
+                  <Separator className="w-full border-border/50" />
+                </div>
+                <div className="relative flex justify-center text-[10px] font-bold uppercase tracking-widest">
+                  <span className="bg-card px-3 text-muted-foreground">Or</span>
                 </div>
               </div>
 
               <Button
-                type="submit"
-                className="w-full h-12 text-lg font-bold cta-gradient shadow-lg shadow-cta/20 hover:scale-[1.01] active:scale-[0.99] transition-all"
-                disabled={isLoading}
+                variant="outline"
+                className="w-full h-11 border-border/50 hover:bg-muted/50 transition-all font-medium"
+                onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
               >
-                {isLoading ? (
-                  <span className="flex items-center gap-2">
-                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                    {mode === 'login' ? 'Signing In...' : 'Joining...'}
-                  </span>
+                {mode === 'login' ? (
+                  <span>New here? <span className="text-cta font-bold ml-1">Create Account</span></span>
                 ) : (
-                  mode === 'login' ? 'Sign In' : 'Create Account'
+                  <span>Already have an account? <span className="text-cta font-bold ml-1">Sign In</span></span>
                 )}
               </Button>
-            </form>
-
-            <div className="relative py-2">
-              <div className="absolute inset-0 flex items-center">
-                <Separator className="w-full border-border/50" />
-              </div>
-              <div className="relative flex justify-center text-[10px] font-bold uppercase tracking-widest">
-                <span className="bg-card px-3 text-muted-foreground">Or</span>
-              </div>
-            </div>
-
-            <Button
-              variant="outline"
-              className="w-full h-11 border-border/50 hover:bg-muted/50 transition-all font-medium"
-              onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
-            >
-              {mode === 'login' ? (
-                <span>New here? <span className="text-cta font-bold ml-1">Create Account</span></span>
-              ) : (
-                <span>Already have an account? <span className="text-cta font-bold ml-1">Sign In</span></span>
-              )}
-            </Button>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-      <div className="mt-auto py-8">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };

@@ -194,7 +194,11 @@ Smooth transitions between themes.
 
   /* Glass morphism effects */
   .glass {
-    @apply bg-card/40 backdrop-blur-xl border border-border/50 shadow-elegant;
+    background: hsl(var(--card) / 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--border) / 0.5);
+    box-shadow: var(--shadow-elegant);
   }
 
   /* Smooth animations */
